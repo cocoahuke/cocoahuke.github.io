@@ -2,13 +2,31 @@
 layout: default
 ---
 
-<article class="post">
-  <h1 class="post-title">{{ page.title }}</h1>
-  <time datetime="{{ page.date | date_to_xmlschema }}" class="post-date">{{ page.date | date_to_string }}</time>
-  {{ content }}
+<article class="post full">
+  <header>
+    {% if page.image %}
+      <div class="background" style="background-image: url('{{ page.image }}')"></div>
+    {% endif %}
+
+    <div class="content">
+      <div class="stage">
+        <h1 class="post-title">{{ page.title }}</h1>
+        <time datetime="{{ page.date | date_to_xmlschema }}" class="post-date">{{ page.date | date_to_string }}</time>
+        {% if page.desc != empty%}
+          <p>{{ page.desc }}</p>
+        {% endif %}
+      </div>
+    </div>
+  </header>
+
+  <main>
+    {{ content }}
+  </main>
 </article>
 
-{% if site.related_posts != empty %}
+<div class="container">
+{% assign len = site.related_posts | size %} 
+{% if site.related_posts != empty and len != 0 %}
 <aside class="related">
   <h3>Related posts</h3>
   <ul class="related-posts">
@@ -16,10 +34,28 @@ layout: default
       <li>
         <a href="{{ site.baseurl }}{{ post.url }}">
           {{ post.title }}
-          <small><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date_to_string }}</time></small>
+          <small>
+            <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date_to_string }}</time>
+          </small>
         </a>
       </li>
     {% endfor %}
   </ul>
 </aside>
 {% endif %}
+</div>
+
+<div id="preview" class="preview-stage">
+  <nav>
+    <a href="#" class="new-tab-btn" target="_blank" title="Open in New Tab">
+      <img src="/assets/new-tab.svg" width="24" height="24"></a>
+  </nav>
+
+  <div class="clip">
+    <img class="preview" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22/%3E" width="720">
+  </div>
+</div>
+
+<script type="application/javascript" src="/scripts/layout.js"></script>
+
+{% include footer.html %}

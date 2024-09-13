@@ -11,7 +11,13 @@
 .masthead-title {
   margin-bottom: 0;
 
-  a {
+  > a {
+    background: -webkit-linear-gradient(290deg, #09009f, #00ff95 80%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  a {  
     color: inherit;
     text-decoration: none;
   }
@@ -24,7 +30,6 @@
 
 // Navbar styles
 .nav {
-  float: right;
   line-height: 1.25rem;
   word-spacing: 1rem;
 }

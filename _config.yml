@@ -1,9 +1,18 @@
 # Setup
-title: Dark Poole
-url: https://getpoole.com
-paginate: 1
-baseurl: ""
+paginate_path: "/posts/:num/"
 permalink: pretty
+
+title:            cocoahuke
+tagline:          ''
+description:      ''
+url:              https://cocoahuke.github.io
+
+author:
+  name:           'cocoahuke'
+
+paginate:         6
+
+# google_ads:       ca-pub-1108303515150537
 
 # Gems
 plugins:
@@ -25,24 +34,18 @@ sass:
   sass_dir: _sass
   style: :compressed
 
-# Options
-
-# Replace this value and uncomment to enable Google Analytics tracking
-# ga_analytics: UA-000000-0
-
 # Specify the author for blog posts
 author:
-  name: Mark Otto
-  url: https://twitter.com/mdo
-  email: markdotto@gmail.com
+  name: 08tc3wbb
+  url: https://twitter.com/08tc3wbb
 
 # Custom vars
 version: 3.0.0
 
 # Navbar page list
 nav:
-  - title: Blog
+  - title: Archive
     url: /archive
 
-  - title: About
-    url: /about
+  - title: RSS
+    url: /atom.xml

@@ -1,33 +1,122 @@
 ---
 layout: default
 title: Home
+description: Portfolio of @08tc3wbb
+image: /assets/IMG_2771.webp
 ---
 
-<div class="posts">
-  {% for post in paginator.posts %}
-  <article class="post">
-    <h1 class="post-title">
-      <a href="{{ post.url | relative_url }}">
-        {{ post.title }}
-      </a>
-    </h1>
+<style type="text/css">
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    min-height: 100dvh;
+  }
 
-    <time datetime="{{ post.date | date_to_xmlschema }}" class="post-date">{{ post.date | date_to_string }}</time>
+  body {
+    background: #222 no-repeat center center;
+    background-image: image-set(url('/assets/IMG_2771.avif') type("image/avif"),
+        url('/assets/IMG_2771.webp') type("image/webp"));
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+  }
 
-    {{ post.content }}
-  </article>
-  {% endfor %}
-</div>
+  body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: inherit;
+    background-position: inherit;
+    background-size: inherit;
+    filter: grayscale(100%);
+    transition: filter 3s ease;
+    z-index: -1;
+  }
 
-<div class="pagination">
-  {% if paginator.next_page %}
-    <a class="pagination-item older" href="{{ paginator.next_page_path | relative_url }}">Older</a>
-  {% else %}
-    <span class="pagination-item older">Older</span>
-  {% endif %}
-  {% if paginator.previous_page %}
-    <a class="pagination-item newer" href="{{ paginator.previous_page_path | prepend: relative_url }}">Newer</a>
-  {% else %}
-    <span class="pagination-item newer">Newer</span>
-  {% endif %}
-</div>
+  body.loaded::before {
+    filter: grayscale(0%);
+  }
+
+  @media (orientation: landscape) {
+    body {
+      background-size: cover;
+      background-position: center center;
+    }
+  }
+
+  @media (orientation: portrait) and (max-height: 800px) {
+    body {
+      background-size: contain;
+      background-position: center top;
+    }
+  }
+
+  .avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+    border: 3px solid #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  }
+
+  main.home {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+    margin-left: 10%;
+    max-width: 80%;
+  }
+
+  section {
+    text-align: left;
+    max-width: 500px;
+  }
+
+  section p {
+    font-size: 0.9em;
+    line-height: 1.5;
+  }
+
+  nav {
+    align-self: flex-start;
+  }
+</style>
+
+<script>
+  window.addEventListener('load', function() {
+    document.body.classList.add('loaded');
+  });
+</script>
+
+<main class="home">
+  <img src="/assets/avatar.avif" alt="Profile Picture" class="avatar">
+  <section>
+    <p>
+      Hi, I'm <a href="https://twitter.com/08tc3wbb" target="_blank">@08tc3wbb</a>,
+      a software engineer who's into vulnerability research, binary analysis, and reverse engineering. I love the challenge and unpredictability of it all! I also create practical apps, and I occasionally <a href="https://github.com/cocoahuke" target="_blank">release them</a> – It makes my day when others find them useful!
+    </p>
+  </section>
+
+  <nav>
+    <ul class="external">
+      <li>
+        <a target="_blank" href="https://twitter.com/@08tc3wbb" rel="me">
+          <img src="/assets/icon/x.svg" alt="X">
+        </a>
+      </li>
+      <li>
+        <a target="_blank" href="https://github.com/cocoahuke">
+          <img src="/assets/icon/github.svg" alt="GitHub">
+        </a>
+      </li>
+    </ul>
+  </nav>
+</main>

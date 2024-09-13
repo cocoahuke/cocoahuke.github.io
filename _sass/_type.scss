@@ -7,6 +7,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
   line-height: 1.25;
   color: var(--heading-color);
+  font-family: var(--title-font);
 }
 
 h1 {
@@ -30,7 +31,7 @@ h4, h5, h6 {
 
 p {
   margin-top: 0;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 }
 
 ul, ol, dl {
@@ -112,4 +113,24 @@ a[href^="#fnref:"] {
 .lead {
   font-size: 1.25rem;
   font-weight: 300;
+}
+
+h2.archive {
+  margin-top: 4rem;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+}
+
+ul.archive {
+  margin-bottom: 6rem;
+}
+
+.hollow-bold {
+  font-weight: bold;
+  -webkit-text-stroke: 1px currentColor;
+  -webkit-text-fill-color: transparent;
+  
+  &:hover {
+    -webkit-text-fill-color: currentColor;
+  }
 }

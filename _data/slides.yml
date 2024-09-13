@@ -1,0 +1,17 @@
+- title: 'Kernel Exploitation on Apple''s M1 chip (OBTS v4.0 USA)'
+  img: OBTS_v4_08tc3wbb.jpg
+  url: https://www.youtube.com/watch?v=h3B4X9ZrTJY&list=PLliknDIoYszvjA1Lix-Uce7ZDxS39J2ZY
+  vid: https://www.youtube.com/watch?v=m8qC3Tj9xRA
+  paper: 
+
+- title: 'Jailbreaks Never Die: Exploiting iOS 13.7 (HITB 2021 UAE)'
+  img: Jailbreaks_Never_Die_Exploiting_iOS_13_7.jpg
+  url: 
+  vid: https://www.youtube.com/watch?v=cmtZLEc4UnY
+  paper: https://magazine.hitb.org/wp-content/uploads/2021/05/HITBMag-Issue-011.pdf
+
+- title: 'Story of Jailbreaking iOS 13 (Black Hat EU 2020)'
+  img: eu-20-Hu-Story-Of-Jailbreaking-IOS-13.jpg
+  url: https://www.blackhat.com/docs/us-17/wednesday/us-17-Feng-Many-Birds-One-Stone-Exploiting-A-Single-SQLite-Vulnerability-Across-Multiple-Software.pdf
+  vid: https://www.youtube.com/watch?v=_DX5_p0NK8o
+  paper: https://i.blackhat.com/eu-20/Thursday/eu-20-Hu-Story-Of-Jailbreaking-IOS-13-wp.pdf

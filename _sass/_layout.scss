@@ -3,14 +3,76 @@
 // Styles for managing the structural hierarchy of the site.
 
 .container {
-  max-width: 45rem;
+  max-width: 48rem;
   padding-left: var(--spacer-2);
   padding-right: var(--spacer-2);
-  margin-left:  auto;
+  margin-left: auto;
   margin-right: auto;
 }
 
 footer {
   margin-top: var(--spacer-3);
   margin-bottom: var(--spacer-3);
+  padding: var(--spacer-3) 0;
+
+  @media (max-width: 800px) {
+    text-align: center;
+  }
+}
+
+header.page {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+header.global {
+  padding: var(--spacer) var(--spacer-3);
+
+  @media (max-width: 800px) {
+    h3.logo {
+      text-align: center;
+    }
+
+    text-align: center;
+
+    nav > ul > li {
+      margin: 0;
+    }
+  }
+
+  @media (min-width: 800px) {
+    display: flex;
+    justify-content: space-between;
+
+    nav > ul > li {
+      margin: .5rem;
+    }
+  }
+
+  h3.logo {
+    margin: .5rem 0;
+  }
+
+  nav > ul {
+    padding-left: 0;
+    margin: 0;
+    list-style: none;
+
+    > li {
+      display: inline-block;
+      font-size: 1rem;
+
+      a {
+        color: var(--link-color);
+        text-decoration: none;
+        padding: .5rem;
+        border-radius: var(--border-radius);
+        transition: background-color .3s;
+
+        &:hover {
+          background-color: var(--link-hover-bg);
+        }
+      }
+    }
+  }
 }

@@ -1,0 +1,56 @@
+---
+layout: default
+title: Blog
+description: Welcome to my blog
+image: /assets/IMG_2771.webp
+---
+
+<div class="posts front-container">
+  {% for post in paginator.posts %}
+  <article class="post">
+    {% if post.image %}
+    <p>
+      <div class="thumbnail">
+        <a href="{{ post.url | relative_url }}">
+          <img src="{{ post.image }}" alt="{{ post.title }}">
+        </a>
+      </div>
+    </p>
+    {% endif %}
+
+    <h1 class="post-title">
+      <a href="{{ post.url | relative_url }}">
+        {{ post.title }}
+      </a>
+    </h1>
+
+    <time datetime="{{ post.date | date_to_xmlschema }}" class="post-date">{{ post.date | date_to_string }}</time>
+
+    <div class="excerpt">
+      {{ post.desc }}
+    </div>
+  </article>
+  {% endfor %}
+</div>
+
+<div class="container">
+<div class="pagination">
+  {% if paginator.next_page %}
+  <a
+    class="pagination-item older"
+    href="{{ paginator.next_page_path | relative_url }}"
+    >Older</a
+  >
+  {% else %}
+  <span class="pagination-item older">Older</span>
+  {% endif %} {% if paginator.previous_page %}
+  <a
+    class="pagination-item newer"
+    href="{{ paginator.previous_page_path | relative_url }}"
+    >Newer</a
+  >
+  {% else %}
+  <span class="pagination-item newer">Newer</span>
+  {% endif %}
+</div>
+</div>

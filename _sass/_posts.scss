@@ -3,18 +3,93 @@
 // Each post is wrapped in `.post` and is used on default and post layouts. Each
 // page is wrapped in `.page` and is only used on the page layout.
 
+.err404 {
+  margin-top: 5rem;
+}
+
 .page,
 .post {
-  margin-bottom: 4em;
-
   li + li {
     margin-top: .25rem;
+  }
+
+  &.full {
+    code.highlighter-rouge {
+      overflow-wrap: break-word;
+    }
+
+    ul, blockquote {
+      overflow-x: hidden;
+    }
+
+    > header {
+      min-height: 640px;
+      margin-bottom: 4rem;
+      position: relative;
+      overflow: hidden;
+
+      > div {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+      }
+
+      > .content {
+        background-color: rgba(0, 0, 0, .4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        nav {
+          margin-bottom: 1rem;
+          color: var(--border-color);
+        }
+
+        > .stage {
+          width: 40rem;
+          @media (min-width: 1201px) {
+            width: 48rem;
+          }
+          padding: 1rem;
+        }
+
+        h1 {
+          color: #fff;
+          text-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.685);
+          font-size: 48px;
+        }
+
+        time {
+          color: rgba(255, 255, 255, 0.658);
+        }
+
+        p {
+          font-size: 1.125rem;
+          color: rgba(255, 255, 255, 0.5);
+        }
+      }
+
+      > .background {
+        z-index: -1;
+        filter: blur(6px);
+        background-size: cover;
+        background-position: center;
+        overflow: hidden;
+      }
+    }
   }
 }
 
 // Blog post or page title
+.post-title {
+  font-weight: 100;
+}
+
 .page-title,
 .post-title {
+  font-family: var(--title-font);
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
   color: var(--heading-color);
 }
 .page-title,
@@ -24,6 +99,11 @@
 .post-title a {
   color: inherit;
   text-decoration: none;
+  transition: color .2s ease-in-out;
+
+  &:hover {
+    color: #00bcd4;
+  }
 
   &:hover,
   &:focus {
@@ -39,6 +119,21 @@
   color: var(--gray-600);
 }
 
+.thumbnail {
+  overflow: hidden;
+  
+  img {
+    border-radius: 0;
+    transition: transform .2s ease-in-out;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+
+  &:hover img {
+    transform: scale(1.05);
+  }
+}
 
 // Related posts
 .related {
@@ -63,5 +158,264 @@
     small {
       color: var(--gray-600);
     }
+  }
+}
+
+@keyframes fadein {
+  0% {
+    opacity: 0;
+    transform: translateX(-10%);
+  }
+  100% {
+    opacity: .75;
+    transform: translateX(0);
+  }
+}
+
+@keyframes restore {
+  0% {
+    opacity: 0;
+    transform: scale(1.1) translateX(-10%);
+  }
+
+  100% {
+    opacity: .75;
+    transform: scale(1) translateX(0);
+  }
+}
+
+.section {
+  margin-top: 6rem !important;
+  margin-bottom: 6rem !important;
+}
+
+.posts {
+  margin: auto;
+  display: grid;
+  grid-row-gap: 40px;
+  justify-content: space-between;
+
+  @media (max-width: 720px) {
+    display: block;
+  }
+
+  @media (min-width: 720px) and (max-width: 1280px) {
+    margin-left: 60px;
+    margin-right: 60px;
+    grid-template-columns: repeat(2, 50%);
+  }
+
+  @media (min-width: 1280px) {
+    max-width: 1200px;
+    grid-template-columns: repeat(3, 33.3%);
+  }
+
+  .post {
+    margin: 20px;
+  }
+}
+
+.click-to-zoom {
+  cursor: zoom-in;
+}
+
+$pink: #e91e63;
+
+article.post {
+  h1.post-title {
+    font-weight: 300;
+  }
+
+  main {
+    margin: 1rem;
+    margin-bottom: 120px;
+
+    @media (min-width: 800px) and (max-width: 1200px) {
+      > * {
+        width: 40rem;
+        margin: 2rem auto;
+      }
+
+      > iframe[src^="https://www.youtube.com"] {
+        max-width: 720px;
+      }
+
+      > .highlighter-rouge, .outstanding {
+        width: 48rem;
+      }
+    }
+
+    > p.full {
+      width: 100%;
+    }
+
+    @media (min-width: 1201px) {
+      > * {
+        width: 48rem;
+        margin: 2rem auto;
+      }
+
+      > iframe[src^="https://www.youtube.com"] {
+        max-width: 960px;
+      }
+
+      > .highlighter-rouge, .outstanding {
+        width: 56rem;
+      }
+    }
+
+    pre.highlight, .highlighter-rouge {
+      break-inside: avoid;
+    }
+
+    div.highlighter-rouge {
+      margin: 2rem auto;
+      position: relative;
+
+      &:hover > button {
+        display: inline;
+      }
+
+      > button {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        display: none;
+      }
+    }
+
+    > iframe {
+      display: block;
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    > iframe[src^="https://www.youtube.com"] {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+    }
+
+    > h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      margin: 2rem auto 1rem auto;
+      font-weight: 300;
+    }
+
+    a {
+      color: #fff;
+    }
+
+    > ul {
+      margin-bottom: 1rem;
+
+      li {
+        margin: .25rem 0;
+      }
+    }
+
+    blockquote {
+      background: rgba(0, 0, 0, .2);
+    }
+
+    p > img {
+      max-width: 100%;
+
+      &.meme {
+        display: inline;
+      }
+    }
+
+    p, ul, ol {
+      code {
+        color: $pink;
+        background: hsl(0deg, 0%, 0%);
+        border-radius: 0.25rem;
+        padding: .125rem .25rem;
+      }
+    }
+  }
+
+  div.highlight {
+    padding: 1rem;
+    overflow: auto;
+    margin-bottom: 1rem;
+  }
+
+  pre.highlight,
+  code {
+    font-family: var(--code-font);
+    overflow-wrap: normal;
+  }
+
+  pre.highlight {
+    margin: 0.5rem;
+    text-shadow: 1px 1px 2px #000;
+  }
+}
+
+.preview-stage {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #131313cf;
+  display: none;
+  opacity: 0;
+  transition: .2s opacity ease-in-out;
+  cursor: zoom-out;
+  z-index: 10;
+
+  &.on {
+    display: flex;
+    opacity: 1;
+  }
+
+  nav a {
+    opacity: .3;
+    transition: .2s opacity ease-in-out;
+    &:hover {
+      opacity: .8;
+    }
+
+    > img {
+      margin: 0;
+    }
+
+    padding: 8px;
+    line-height: 12px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.6);
+    margin: 4px;
+    display: inline-block;
+  }
+
+  nav {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    z-index: 1;
+  }
+
+  .clip {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  img.preview {
+    background-color: #000;
+    box-shadow: 0 0 40rem #000;
+    min-width: 80vw;
+    max-width: 100%;
+    margin: 0;
   }
 }

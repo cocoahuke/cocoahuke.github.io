@@ -1,0 +1,12 @@
+<footer class="footer container">
+  <small>
+    &copy;
+    <time datetime="{{ site.time | date_to_xmlschema }}">{{ site.time | date: '%Y' }}</time>. All rights reserved.
+  </small>
+  <nav class="social">
+    {% for item in site.data.links %}
+    <a href="{{ item[1] }}" target="_blank" rel="noopener"><img alt="{{ item[0] }}"
+        src="/assets/icon/{{ item[0] | downcase }}.svg">{{ item[0] }}</a>
+    {% endfor %}
+  </nav>
+</footer>

@@ -1,0 +1,39 @@
+---
+title: Conference Talks
+layout: default
+---
+
+<section class="front-container slides section">
+  <h2>Presentations</h2>
+  <div class="list">
+    {% for s in site.data.slides %}
+    <div class="presentation">
+        <picture>
+          <source type="image/webp" srcset="/img/slides/{{ s.img | replace: '.jpg', '.webp' }}">
+          <source type="image/avif" srcset="/img/slides/{{ s.img | replace: '.jpg', '.avif' }}">
+          <img alt="{{ s.title }}" src="/img/slides/{{ s.img }}" width="240">
+        </picture>
+      </a>
+      <p>{{ s.title }}</p>
+      <div class="buttons">
+        <a href="{{ s.vid }}" class="button" target="_blank" rel="noopener">Video</a>
+        {% if s.url %}
+        <a href="{{ s.url }}" class="button" target="_blank" rel="noopener">Slide</a>
+        {% endif %}
+        {% if s.paper %}
+        <a href="{{ s.paper }}" class="button" target="_blank" rel="noopener">Paper</a> <!-- New Paper button -->
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+{% include footer.html %}
+
+<style>
+  .presentation {
+    margin-bottom: 35px; /* Adjust the value as needed */
+    margin-right: 30px;
+  }
+</style>
