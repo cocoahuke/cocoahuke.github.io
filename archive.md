@@ -5,7 +5,7 @@ title: Archive
 
 <div class="terminal-archive">
   <div class="terminal-line">
-    <span class="prompt">cybersec@{{ site.title }}:~/archive$</span>
+    <span class="prompt">infosec@{{ site.title }}:~/archive$</span>
     <span class="command">find . -type f -name "*.md" | sort -r</span>
   </div>
   
@@ -38,7 +38,7 @@ title: Archive
   {% endfor %}
   
   <div class="terminal-line terminal-footer">
-    <span class="prompt">cybersec@{{ site.title }}:~/archive$</span>
+    <span class="prompt">infosec@{{ site.title }}:~/archive$</span>
     <span class="cursor blink">_</span>
   </div>
 </div>
