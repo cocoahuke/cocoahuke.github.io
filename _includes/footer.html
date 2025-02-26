@@ -1,12 +1,124 @@
-<footer class="footer container">
-  <small>
-    &copy;
-    <time datetime="{{ site.time | date_to_xmlschema }}">{{ site.time | date: '%Y' }}</time>. All rights reserved.
-  </small>
-  <nav class="social">
-    {% for item in site.data.links %}
-    <a href="{{ item[1] }}" target="_blank" rel="noopener"><img alt="{{ item[0] }}"
-        src="/assets/icon/{{ item[0] | downcase }}.svg">{{ item[0] }}</a>
-    {% endfor %}
-  </nav>
+<footer class="footer container terminal-footer">
+  <div class="terminal-line">
+    <span class="prompt">infosec@{{ site.title }}:~$</span>
+    <span class="command">echo $COPYRIGHT</span>
+  </div>
+  
+  <div class="footer-content">
+    <small class="copyright">
+      <span class="symbol">[</span>
+      &copy;
+      <time datetime="{{ site.time | date_to_xmlschema }}">{{ site.time | date: '%Y' }}</time>
+      <span class="symbol">]</span>
+      <span class="rights">All rights reserved.</span>
+      <span class="blink">_</span>
+    </small>
+    
+    <nav class="social">
+      {% for item in site.data.links %}
+      <a href="{{ item[1] }}" target="_blank" rel="noopener" class="social-link">
+        <img alt="{{ item[0] }}" src="/assets/icon/{{ item[0] | downcase }}.svg">
+        <span class="social-name">{{ item[0] }}</span>
+      </a>
+      {% endfor %}
+    </nav>
+  </div>
+  
+  <div class="ascii-divider">
+    +-----------------------[ Secure Connection ]------------------------+
+  </div>
 </footer>
+
+<style>
+  .terminal-footer {
+    border-top: 1px solid var(--hacker-text-dim);
+    padding-top: 1.5rem;
+    margin-top: 3rem;
+    font-family: var(--code-font);
+  }
+  
+  .terminal-line {
+    margin-bottom: 1rem;
+    color: var(--hacker-text);
+  }
+  
+  .prompt {
+    color: var(--hacker-text-bright);
+    margin-right: 0.5rem;
+  }
+  
+  .command {
+    color: var(--hacker-accent);
+  }
+  
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  .copyright {
+    color: var(--hacker-text);
+    font-size: 0.9rem;
+  }
+  
+  .symbol {
+    color: var(--hacker-text-dim);
+    margin: 0 3px;
+  }
+  
+  .rights {
+    opacity: 0.7;
+  }
+  
+  .social-link {
+    position: relative;
+    margin-left: 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    color: var(--hacker-text);
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+  
+  .social-link:hover {
+    color: var(--hacker-text-bright);
+    transform: translateY(-2px);
+  }
+  
+  .social-link img {
+    filter: brightness(0) invert(1) sepia(100%) saturate(1000%) hue-rotate(80deg);
+    opacity: 0.7;
+    transition: all 0.3s ease;
+    margin: 0 5px 0 0;
+  }
+  
+  .social-link:hover img {
+    opacity: 1;
+    filter: brightness(0) invert(1) sepia(100%) saturate(1000%) hue-rotate(120deg) drop-shadow(0 0 3px rgba(0, 255, 0, 0.7));
+  }
+  
+  .ascii-divider {
+    margin-top: 1.5rem;
+    text-align: center;
+    color: var(--hacker-text-dim);
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+  }
+  
+  @media (max-width: 800px) {
+    .footer-content {
+      flex-direction: column;
+      text-align: center;
+    }
+    
+    .social {
+      margin-top: 1rem;
+    }
+    
+    .social-link:first-child {
+      margin-left: 0;
+    }
+  }
+</style>

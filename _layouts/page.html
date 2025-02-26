@@ -2,8 +2,105 @@
 layout: default
 ---
 
-<article class="page container">
-  {{ content }}
+<article class="page container terminal-page">
+  <div class="terminal-header-bar">
+    <div class="terminal-title">infosec@{{ site.title }}:~/{{ page.title | slugify }}$ cat readme.md</div>
+    <div class="terminal-buttons">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+  
+  <div class="terminal-content">
+    <h1 class="page-title">{{ page.title }}</h1>
+    <div class="terminal-output">
+      {{ content }}
+    </div>
+  </div>
 </article>
+
+<style>
+  .terminal-page {
+    border: 1px solid var(--hacker-text);
+    border-radius: 5px;
+    background-color: rgba(0, 10, 0, 0.7);
+    box-shadow: var(--terminal-shadow);
+    margin-bottom: 2rem;
+    overflow: hidden;
+    padding: 0;
+  }
+  
+  .terminal-header-bar {
+    background-color: var(--hacker-bg-alt);
+    padding: 8px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--hacker-text-dim);
+  }
+  
+  .terminal-title {
+    color: var(--hacker-text-bright);
+    font-family: var(--code-font);
+    font-size: 0.9rem;
+  }
+  
+  .terminal-buttons {
+    display: flex;
+  }
+  
+  .terminal-buttons span {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-left: 8px;
+    background-color: var(--hacker-text-dim);
+  }
+  
+  .terminal-content {
+    padding: 1.5rem;
+    position: relative;
+  }
+  
+  .page-title {
+    color: var(--hacker-text-bright);
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+    font-family: var(--title-font);
+    position: relative;
+    display: inline-block;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+  }
+  
+  .page-title::before {
+    content: "> ";
+    color: var(--hacker-text-dim);
+  }
+  
+  .terminal-output {
+    position: relative;
+    font-family: var(--body-font);
+  }
+  
+  /* Add scan lines effect */
+  .terminal-content::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      to bottom,
+      transparent 50%,
+      rgba(0, 10, 0, 0.05) 50%
+    );
+    background-size: 100% 4px;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.2;
+  }
+</style>
 
 {% include footer.html %}

@@ -1,15 +1,20 @@
 // Code
 //
-// Inline and block-level code snippets. Includes tweaks to syntax highlighted
-// snippets from Pygments/Rouge and Gist embeds.
+// Inline and block-level code snippets with hacker-style terminal appearance
 
 code,
 pre {
   font-family: var(--code-font);
+  text-shadow: 0 0 2px var(--hacker-text);
 }
 
 code {
   font-size: 85%;
+  color: var(--hacker-accent);
+  background-color: rgba(0, 20, 0, 0.3);
+  padding: 2px 4px;
+  border-radius: 0;
+  border: 1px solid var(--hacker-text-dim);
 }
 
 pre {
@@ -17,21 +22,63 @@ pre {
   margin-top: 0;
   margin-bottom: var(--spacer-3);
   overflow: auto;
+  position: relative;
+  
+  &::before {
+    content: "$ cat exploit.sh";
+    display: block;
+    color: var(--hacker-text-bright);
+    border-bottom: 1px solid var(--hacker-text-dim);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    font-family: var(--code-font);
+  }
 }
 
 .highlight {
   padding: var(--spacer);
   margin-bottom: var(--spacer);
-  background-color: var(--code-bg);
-  border-radius: var(--border-radius);
+  background-color: var(--hacker-code-bg);
+  border-radius: 0;
+  border: 1px solid var(--hacker-text-dim);
+  box-shadow: var(--terminal-shadow);
+  position: relative;
 
   pre {
     margin-bottom: 0;
+    
+    &::before {
+      content: none; // Remove the pre::before content for nested pre in highlight
+    }
   }
 
   // Triple backticks (code fencing) doubles the .highlight elements
   .highlight {
     padding: 0;
+    border: none;
+    box-shadow: none;
+  }
+  
+  // Add line numbers styling
+  .lineno {
+    color: var(--hacker-text-dim);
+    border-right: 1px solid var(--hacker-text-dim);
+    padding-right: 8px;
+    margin-right: 8px;
+    text-align: right;
+  }
+  
+  // Add a blinking cursor at the end of the code block
+  &::after {
+    content: "";
+    display: inline-block;
+    width: 8px;
+    height: 15px;
+    background-color: var(--hacker-text);
+    animation: blink 1s step-end infinite;
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
   }
 }
 
@@ -48,11 +95,41 @@ pre {
   .gutter {
     vertical-align: top;
     user-select: none;
-    opacity: .25;
+    color: var(--hacker-text-dim);
+    opacity: .6;
+    border-right: 1px solid var(--hacker-text-dim);
+    padding-right: 10px;
+    margin-right: 10px;
   }
 }
 
 // Gist via GitHub Pages
 .gist .markdown-body {
   padding: 15px !important;
+  background-color: var(--hacker-code-bg) !important;
+  border: 1px solid var(--hacker-text-dim) !important;
+  
+  .highlight {
+    background-color: transparent !important;
+  }
+  
+  pre, code {
+    background-color: transparent !important;
+    color: var(--hacker-text) !important;
+  }
+}
+
+// Syntax highlighting colors for hacker theme
+.highlight {
+  .c, .c1, .cm { color: var(--hacker-text-dim); } /* Comment */
+  .k, .kd, .kn, .kp, .kr, .kt { color: var(--hacker-accent); } /* Keyword */
+  .o, .ow { color: var(--hacker-accent-alt); } /* Operator */
+  .p { color: var(--hacker-text); } /* Punctuation */
+  .gd { color: #f00; } /* Generic.Deleted */
+  .gi { color: var(--hacker-text); } /* Generic.Inserted */
+  .s, .sb, .sc, .sd, .s2, .se, .sh, .si, .sx { color: #0f0; } /* String */
+  .sr { color: #0ff; } /* String.Regex */
+  .ss { color: #ff0; } /* String.Symbol */
+  .m, .mf, .mh, .mi, .mo { color: #f0f; } /* Number */
+  .na, .nb, .nc, .no, .nd, .ni, .ne, .nf, .nl, .nn, .nt, .nv { color: #0ff; } /* Name */
 }

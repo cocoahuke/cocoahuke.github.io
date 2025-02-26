@@ -1,10 +1,214 @@
 ---
 layout: default
-title: "404: Page not found"
+title: "ACCESS DENIED: 404"
 permalink: 404.html
 ---
 
 <div class="container err404">
-  <h1><img src="/assets/404.svg" alt="404 Page Not Found" width="800"></h1>
-  <p class="lead">Sorry, we've misplaced that URL or it's pointing to something that doesn't exist. <a href="{{ site.baseurl }}/">Head back home</a> to try finding it again.</p>
+  <div class="terminal-window">
+    <div class="terminal-header">
+      <div class="terminal-title">cybersec@{{ site.title }}:~$ access --restricted-area</div>
+      <div class="terminal-buttons">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    <div class="terminal-body">
+      <div class="error-code">ERROR 404</div>
+      <div class="access-denied">ACCESS DENIED</div>
+      <div class="error-message">
+        <span class="blink">></span> Authentication failed. Security protocols engaged.
+      </div>
+      <div class="error-details">
+        <p>The requested file could not be found on this server.</p>
+        <p>Possible security breach attempt has been logged.</p>
+        <p>IP address: <span class="ip-address">REDACTED</span></p>
+        <p>Timestamp: <span class="timestamp" id="timestamp"></span></p>
+      </div>
+      <div class="terminal-line">
+        <span class="prompt">cybersec@{{ site.title }}:~$</span>
+        <span class="command">return --home</span>
+      </div>
+      <div class="terminal-output">
+        <p>Redirecting to secure location... <a href="{{ site.baseurl }}/">PROCEED</a></p>
+      </div>
+    </div>
+  </div>
 </div>
+
+<style>
+  .err404 {
+    font-family: var(--code-font);
+    color: var(--hacker-text);
+    text-align: left;
+    padding: 0;
+  }
+  
+  .terminal-window {
+    border: 1px solid var(--hacker-text);
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 0 30px rgba(0, 255, 0, 0.3);
+    margin: 50px auto;
+    max-width: 800px;
+    background-color: rgba(0, 10, 0, 0.9);
+  }
+  
+  .terminal-header {
+    background-color: var(--hacker-bg-alt);
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--hacker-text-dim);
+  }
+  
+  .terminal-title {
+    color: var(--hacker-text-bright);
+    font-size: 14px;
+  }
+  
+  .terminal-buttons {
+    display: flex;
+  }
+  
+  .terminal-buttons span {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-left: 8px;
+    background-color: var(--hacker-text-dim);
+  }
+  
+  .terminal-body {
+    padding: 20px;
+    position: relative;
+  }
+  
+  .error-code {
+    font-size: 5rem;
+    color: var(--hacker-accent-alt);
+    text-shadow: 0 0 10px var(--hacker-accent-alt);
+    margin-bottom: 10px;
+    animation: glitch 0.3s infinite alternate-reverse;
+  }
+  
+  .access-denied {
+    font-size: 2rem;
+    color: var(--hacker-text-bright);
+    margin-bottom: 30px;
+    position: relative;
+    display: inline-block;
+  }
+  
+  .access-denied::before {
+    content: "ACCESS DENIED";
+    position: absolute;
+    left: 2px;
+    top: 0;
+    color: rgba(255, 0, 255, 0.5);
+    animation: glitch 0.3s infinite alternate-reverse;
+  }
+  
+  .access-denied::after {
+    content: "ACCESS DENIED";
+    position: absolute;
+    left: -2px;
+    top: 0;
+    color: rgba(0, 255, 255, 0.5);
+    animation: glitch 0.3s 0.1s infinite alternate-reverse;
+  }
+  
+  .error-message {
+    margin-bottom: 20px;
+    color: var(--hacker-accent);
+  }
+  
+  .error-details {
+    margin-bottom: 30px;
+    border-left: 2px solid var(--hacker-text-dim);
+    padding-left: 15px;
+  }
+  
+  .error-details p {
+    margin: 5px 0;
+    font-size: 0.9rem;
+  }
+  
+  .ip-address, .timestamp {
+    color: var(--hacker-accent);
+  }
+  
+  .terminal-line {
+    margin-top: 30px;
+    margin-bottom: 10px;
+  }
+  
+  .prompt {
+    color: var(--hacker-text-bright);
+    margin-right: 10px;
+  }
+  
+  .command {
+    color: var(--hacker-text);
+  }
+  
+  .terminal-output {
+    color: var(--hacker-text-dim);
+  }
+  
+  .terminal-output a {
+    color: var(--hacker-accent);
+    text-decoration: none;
+    border: 1px solid var(--hacker-text-dim);
+    padding: 2px 8px;
+    margin-left: 10px;
+    transition: all 0.3s ease;
+  }
+  
+  .terminal-output a:hover {
+    background-color: var(--hacker-text-dim);
+    color: var(--hacker-bg);
+    box-shadow: 0 0 10px var(--hacker-text);
+  }
+  
+  /* Add scan lines effect */
+  .terminal-body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      to bottom,
+      transparent 50%,
+      rgba(0, 10, 0, 0.05) 50%
+    );
+    background-size: 100% 4px;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.3;
+  }
+</style>
+
+<script>
+  // Display current timestamp
+  document.addEventListener('DOMContentLoaded', function() {
+    const timestampElement = document.getElementById('timestamp');
+    const now = new Date();
+    timestampElement.textContent = now.toISOString();
+    
+    // Add glitch effect randomly
+    setInterval(function() {
+      if (Math.random() > 0.9) {
+        document.querySelector('.error-code').style.textShadow = `
+          ${Math.random() * 10 - 5}px ${Math.random() * 10 - 5}px 10px rgba(255, 0, 255, 0.7)
+        `;
+        setTimeout(function() {
+          document.querySelector('.error-code').style.textShadow = '0 0 10px var(--hacker-accent-alt)';
+        }, 100);
+      }
+    }, 500);
+  });
+</script>

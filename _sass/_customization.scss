@@ -3,45 +3,172 @@
   margin-bottom: var(--spacer-2);
 }
 
+/* Terminal and hacker effects */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+  background-size: 100% 4px;
+  z-index: 1000;
+  pointer-events: none;
+  opacity: var(--scanline-opacity);
+  animation: scanlines var(--scanline-speed) linear infinite;
+}
+
+@keyframes scanlines {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 100%;
+  }
+}
+
+/* Blinking cursor effect */
+.cursor::after {
+  content: "_";
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Glitch effect for headings */
+@keyframes glitch {
+  0% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translate(-2px, 2px);
+  }
+  40% {
+    transform: translate(-2px, -2px);
+  }
+  60% {
+    transform: translate(2px, 2px);
+  }
+  80% {
+    transform: translate(2px, -2px);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  position: relative;
+  
+  &:hover {
+    animation: glitch var(--glitch-duration) ease-in-out;
+    text-shadow: var(--terminal-glow);
+  }
+  
+  &::before {
+    content: var(--heading-prefix);
+    color: var(--hacker-text-dim);
+  }
+}
+
+/* Terminal window styling */
+.container, .post, article {
+  position: relative;
+  border: 1px solid var(--hacker-text);
+  border-radius: 5px;
+  padding: 1.5rem;
+  background-color: rgba(0, 0, 0, 0.7);
+  box-shadow: var(--terminal-shadow);
+  
+  &::before {
+    content: "$ cat infosec_research.txt";
+    display: block;
+    color: var(--hacker-text-bright);
+    border-bottom: 1px solid var(--hacker-text-dim);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    font-family: var(--code-font);
+  }
+}
+
+/* Logo styling with hacker theme */
 .logo {
   a {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    font-family: 'Raleway', sans-serif;
+    font-family: var(--title-font);
     transition: .2s ease-out opacity;
-    background-image: repeating-linear-gradient(
+    background-image: linear-gradient(
       to right,
-      #FF8C00 0%,
-      #FF8C00 20%,
-      #808080 20%,
-      #808080 40%
+      var(--hacker-text) 0%,
+      var(--hacker-accent) 50%,
+      var(--hacker-text) 100%
     );
     background-size: 200% auto;
-    animation: zebraStripe 5s linear infinite;
-    opacity: .8;
+    animation: textGlow 3s linear infinite;
+    opacity: .9;
     text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
 
     &:hover {
       opacity: 1;
+      animation: glitch 0.3s ease-in-out;
+    }
+    
+    &::before {
+      content: ">";
+      -webkit-text-fill-color: var(--hacker-text);
+      margin-right: 5px;
     }
   }
 }
 
-@keyframes zebraStripe {
+@keyframes textGlow {
   0% {
     background-position: 0% center;
+    text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+  }
+  50% {
+    background-position: 100% center;
+    text-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
   }
   100% {
-    background-position: -200% center;
+    background-position: 0% center;
+    text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
   }
 }
 
+/* Matrix-like background effect */
+body {
+  position: relative;
+  
+  &::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, rgba(0,20,0,0.4) 0%, rgba(0,0,0,0.9) 100%);
+    pointer-events: none;
+    z-index: -1;
+  }
+}
+
+/* Home page styling */
 main.home {
   display: flex;
   flex: 1;
   flex-direction: column;
   justify-content: center;
   margin: var(--spacer-3);
+  position: relative;
 
   @media (orientation: portrait) and (max-height: 800px) {
     justify-content: flex-end;
@@ -61,8 +188,15 @@ main.home {
 
   p {
     margin-bottom: .75rem;
-    color: #fff;
-    text-shadow: 1px 1px 1px var(--gray-900);
+    color: var(--hacker-text);
+    text-shadow: var(--terminal-glow);
+    font-family: var(--body-font);
+    position: relative;
+    
+    &::before {
+      content: "> ";
+      color: var(--hacker-text-dim);
+    }
 
     @media screen and (max-width: 800px) {
       max-width: 480px;
@@ -78,6 +212,30 @@ main.home {
       max-width: 800px;
       font-size: 2rem;
     }
+    
+    a {
+      position: relative;
+      text-decoration: none;
+      color: var(--hacker-accent);
+      padding: 0 5px;
+      transition: all 0.3s ease;
+      
+      &:hover {
+        background-color: var(--hacker-text-dim);
+        color: var(--hacker-bg);
+        text-shadow: none;
+      }
+      
+      &::before {
+        content: "[";
+        margin-right: 2px;
+      }
+      
+      &::after {
+        content: "]";
+        margin-left: 2px;
+      }
+    }
   }
 
   nav, section {
@@ -86,10 +244,13 @@ main.home {
 
   nav a > img {
     opacity: .75;
-    transition: .2s ease-out opacity;
+    transition: .2s ease-out all;
+    filter: hue-rotate(100deg) brightness(1.5);
 
     &:hover {
       opacity: 1;
+      transform: scale(1.1);
+      filter: hue-rotate(180deg) brightness(2);
     }
   }
 
@@ -121,33 +282,94 @@ main.home {
 
     >li {
       display: inline-block;
+      position: relative;
 
       &:not(:last-child) {
         margin-right: 2rem;
+      }
+      
+      &::before {
+        content: "[";
+        color: var(--hacker-text-dim);
+        position: absolute;
+        left: -10px;
+      }
+      
+      &::after {
+        content: "]";
+        color: var(--hacker-text-dim);
+        position: absolute;
+        right: -10px;
       }
     }
   }
 }
 
+/* Binary code decoration */
+.binary-decoration {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -2;
+  opacity: 0.05;
+  overflow: hidden;
+  
+  &::before {
+    content: "01001000 01100001 01100011 01101011 01100101 01110010 00100000 01000101 01110100 01101000 01101001 01100011 01110011 00100000 01010011 01100101 01100011 01110101 01110010 01101001 01110100 01111001 00100000 01010010 01100101 01110011 01100101 01100001 01110010 01100011 01101000 00100000 01000011 01111001 01100010 01100101 01110010";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    font-family: var(--code-font);
+    font-size: 14px;
+    line-height: 1.2;
+    color: var(--hacker-text);
+    white-space: wrap;
+    word-break: break-all;
+  }
+}
+
+/* Latest posts styling */
 .latest-posts {
   margin-top: var(--spacer-3);
+  position: relative;
+  
+  &::before {
+    content: "$ ls -la /posts/recent";
+    display: block;
+    color: var(--hacker-text-bright);
+    font-family: var(--code-font);
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--hacker-text-dim);
+    padding-bottom: 0.5rem;
+  }
 
   a.more {
     float: right;
     display: block;
-    background-color: var(--gray-900);
-    color: var(--gray-600);
-    transition: .2s ease-in-out background-color, .2s ease-in-out color;
-
+    background-color: var(--hacker-bg-alt);
+    color: var(--hacker-text);
+    transition: .2s ease-in-out all;
+    border: 1px solid var(--hacker-text-dim);
+    
     &:hover {
-      background-color: var(--gray-600);
-      color: var(--gray-300);
+      background-color: var(--hacker-text-dim);
+      color: var(--hacker-bg);
+      box-shadow: 0 0 10px var(--hacker-text);
     }
 
-    border-radius: 4px;
+    border-radius: 0;
     padding: 8px;
     text-decoration: none;
     font-size: 1rem;
+    font-family: var(--code-font);
+    
+    &::before {
+      content: "$ more ";
+    }
   }
 
   ul.cards {
@@ -186,6 +408,14 @@ main.home {
       margin: 0;
       text-align: center;
       overflow: hidden;
+      border: 1px solid var(--hacker-text-dim);
+      background-color: rgba(0, 20, 0, 0.3);
+      transition: all 0.3s ease;
+      
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 0 15px var(--hacker-text);
+      }
 
       a {
         text-decoration: none;
@@ -194,13 +424,28 @@ main.home {
         img {
           aspect-ratio: 9 / 5;
           width: 100%;
-          border-radius: 0.5rem;
-          box-shadow: 0px 0px 8px 1px #00000059;
+          border-radius: 0;
+          box-shadow: none;
+          filter: grayscale(50%) hue-rotate(120deg);
+          transition: all 0.3s ease;
+          
+          &:hover {
+            filter: grayscale(0%) hue-rotate(0deg);
+          }
         }
 
         >span {
           font-size: 1.25rem;
           display: block;
+          padding: 10px;
+          color: var(--hacker-text);
+          font-family: var(--code-font);
+          position: relative;
+          
+          &::before {
+            content: "> ";
+            color: var(--hacker-text-dim);
+          }
         }
       }
     }
@@ -339,6 +584,49 @@ nav.social {
   }
 }
 
+/* 404 page styling */
 .err404 {
   text-align: center;
+  color: var(--hacker-accent-alt);
+  font-family: var(--code-font);
+  
+  &::before {
+    content: "ACCESS DENIED";
+    display: block;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    animation: glitch 0.3s infinite;
+  }
+  
+  &::after {
+    content: "SYSTEM ERROR: 404";
+    display: block;
+    margin-top: 1rem;
+    color: var(--hacker-text);
+  }
+}
+
+/* Selection styling */
+::selection {
+  background-color: var(--hacker-selection);
+  color: var(--hacker-text-bright);
+}
+
+/* Add the binary decoration div to the layout */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 255, 0, 0.03) 3px,
+    rgba(0, 255, 0, 0.03) 3px
+  );
+  pointer-events: none;
+  z-index: -1;
 }

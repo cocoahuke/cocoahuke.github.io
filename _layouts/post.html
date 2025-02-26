@@ -2,48 +2,261 @@
 layout: default
 ---
 
-<article class="post full">
+<article class="post full terminal-post">
+  <div class="terminal-header-bar">
+    <div class="terminal-title">infosec@{{ site.title }}:~/posts$ cat {{ page.path | split: "/" | last }}</div>
+    <div class="terminal-buttons">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+  
   <header>
     {% if page.image %}
-      <div class="background" style="background-image: url('{{ page.image }}')"></div>
+      <div class="background" style="background-image: url('{{ page.image }}'); filter: grayscale(70%) hue-rotate(120deg) brightness(0.7);"></div>
     {% endif %}
 
     <div class="content">
       <div class="stage">
+        <div class="post-meta">
+          <span class="post-type">// SECURITY RESEARCH</span>
+          <time datetime="{{ page.date | date_to_xmlschema }}" class="post-date">
+            <span class="meta-label">Timestamp:</span> {{ page.date | date: "%Y-%m-%d %H:%M:%S" }}
+          </time>
+        </div>
         <h1 class="post-title">{{ page.title }}</h1>
-        <time datetime="{{ page.date | date_to_xmlschema }}" class="post-date">{{ page.date | date_to_string }}</time>
         {% if page.desc != empty%}
-          <p>{{ page.desc }}</p>
+          <p class="post-desc">{{ page.desc }}</p>
         {% endif %}
       </div>
     </div>
   </header>
 
-  <main>
-    {{ content }}
+  <main class="post-content">
+    <div class="terminal-line">
+      <span class="prompt">infosec@{{ site.title }}:~/posts$</span>
+      <span class="command">decrypt --content {{ page.title | slugify }}</span>
+    </div>
+    <div class="terminal-output">
+      {{ content }}
+    </div>
   </main>
 </article>
 
-<div class="container">
+<style>
+  .terminal-post {
+    border: 1px solid var(--hacker-text);
+    border-radius: 5px;
+    background-color: rgba(0, 10, 0, 0.7);
+    box-shadow: var(--terminal-shadow);
+    margin-bottom: 2rem;
+    overflow: hidden;
+  }
+  
+  .terminal-header-bar {
+    background-color: var(--hacker-bg-alt);
+    padding: 8px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--hacker-text-dim);
+  }
+  
+  .terminal-title {
+    color: var(--hacker-text-bright);
+    font-family: var(--code-font);
+    font-size: 0.9rem;
+  }
+  
+  .terminal-buttons {
+    display: flex;
+  }
+  
+  .terminal-buttons span {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-left: 8px;
+    background-color: var(--hacker-text-dim);
+  }
+  
+  .post-meta {
+    margin-bottom: 1rem;
+    font-family: var(--code-font);
+    font-size: 0.9rem;
+  }
+  
+  .post-type {
+    color: var(--hacker-text-dim);
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  
+  .post-date {
+    color: var(--hacker-accent);
+  }
+  
+  .meta-label {
+    color: var(--hacker-text-dim);
+    margin-right: 0.5rem;
+  }
+  
+  .post-title {
+    color: var(--hacker-text-bright);
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+    font-family: var(--title-font);
+    position: relative;
+    display: inline-block;
+  }
+  
+  .post-title::before {
+    content: "> ";
+    color: var(--hacker-text-dim);
+  }
+  
+  .post-desc {
+    color: var(--hacker-text);
+    font-family: var(--code-font);
+    border-left: 2px solid var(--hacker-text-dim);
+    padding-left: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .terminal-line {
+    font-family: var(--code-font);
+    margin: 1.5rem 0 1rem;
+    color: var(--hacker-text);
+  }
+  
+  .prompt {
+    color: var(--hacker-text-bright);
+    margin-right: 0.5rem;
+  }
+  
+  .command {
+    color: var(--hacker-accent);
+  }
+  
+  .terminal-output {
+    position: relative;
+    padding: 0 1rem;
+  }
+  
+  /* Add scan lines effect */
+  .post-content::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      to bottom,
+      transparent 50%,
+      rgba(0, 10, 0, 0.05) 50%
+    );
+    background-size: 100% 4px;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.2;
+  }
+</style>
+
+<div class="container terminal-container">
 {% assign len = site.related_posts | size %} 
 {% if site.related_posts != empty and len != 0 %}
 <aside class="related">
-  <h3>Related posts</h3>
-  <ul class="related-posts">
-    {% for post in site.related_posts limit:3 %}
-      <li>
-        <a href="{{ site.baseurl }}{{ post.url }}">
-          {{ post.title }}
-          <small>
-            <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date_to_string }}</time>
-          </small>
-        </a>
-      </li>
-    {% endfor %}
-  </ul>
+  <div class="terminal-header-bar">
+    <div class="terminal-title">infosec@{{ site.title }}:~/posts$ find --related</div>
+    <div class="terminal-buttons">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+  
+  <div class="terminal-content">
+    <h3 class="related-title">// RELATED RESEARCH FILES</h3>
+    <ul class="related-posts">
+      {% for post in site.related_posts limit:3 %}
+        <li>
+          <a href="{{ site.baseurl }}{{ post.url }}" class="related-link">
+            <span class="related-icon">></span>
+            {{ post.title }}
+            <small>
+              <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y-%m-%d" }}</time>
+            </small>
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
 </aside>
 {% endif %}
 </div>
+
+<style>
+  .terminal-container {
+    margin-top: 2rem;
+  }
+  
+  .related {
+    border: 1px solid var(--hacker-text-dim);
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: rgba(0, 10, 0, 0.7);
+  }
+  
+  .terminal-content {
+    padding: 1.5rem;
+  }
+  
+  .related-title {
+    color: var(--hacker-text-bright);
+    font-family: var(--code-font);
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    font-size: 1.2rem;
+  }
+  
+  .related-posts {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .related-posts li {
+    margin-bottom: 1rem;
+  }
+  
+  .related-link {
+    display: block;
+    color: var(--hacker-text);
+    text-decoration: none;
+    font-family: var(--code-font);
+    padding: 0.5rem;
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+  }
+  
+  .related-link:hover {
+    border-color: var(--hacker-text-dim);
+    background-color: rgba(0, 255, 0, 0.05);
+    transform: translateX(5px);
+  }
+  
+  .related-icon {
+    color: var(--hacker-text-dim);
+    margin-right: 0.5rem;
+  }
+  
+  .related-link small {
+    display: block;
+    color: var(--hacker-accent);
+    margin-top: 0.3rem;
+    margin-left: 1rem;
+  }
+</style>
 
 <div id="preview" class="preview-stage">
   <nav>

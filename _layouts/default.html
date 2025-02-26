@@ -3,9 +3,32 @@
   {% include head.html %}
 
   <body>
+    <div class="binary-decoration"></div>
     {% include header.html %}
 
     {{ content }}
+    
+    <script>
+      // Add cursor effect to elements with class 'cursor'
+      document.addEventListener('DOMContentLoaded', function() {
+        // Add terminal typing effect
+        const terminalElements = document.querySelectorAll('.container, .post, article');
+        terminalElements.forEach(el => {
+          el.classList.add('terminal');
+        });
+        
+        // Add glitch effect on hover for headings
+        const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
+        headings.forEach(heading => {
+          heading.addEventListener('mouseover', function() {
+            this.style.animation = 'glitch var(--glitch-duration) ease-in-out';
+          });
+          heading.addEventListener('mouseout', function() {
+            this.style.animation = '';
+          });
+        });
+      });
+    </script>
 
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-NVFY4EE4HQ"></script>

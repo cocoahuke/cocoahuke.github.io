@@ -1,13 +1,70 @@
-<header class="global">
+<header class="global terminal-header">
+  <div class="terminal-bar">
+    <span class="terminal-title">infosec@{{ site.title }}:~$</span>
+    <div class="terminal-buttons">
+      <span class="terminal-button"></span>
+      <span class="terminal-button"></span>
+      <span class="terminal-button"></span>
+    </div>
+  </div>
+  
   <h3 class="logo">
-    <a href="{{ site.baseurl }}/" title="Home">{{ site.title }}</a>
+    <a href="{{ site.baseurl }}/" title="Home" class="cursor">{{ site.title }}</a>
   </h3>
-  <nav>
+  
+  <nav class="terminal-nav">
     <ul>
-      <li><a href="/posts" title="Posts" class="hollow-bold">Posts</a></li>
-      <li><a href="/archive" title="Archive" class="hollow-bold">Archive</a></li>
-      <li><a href="/talks" title="Talks" class="hollow-bold">Talks</a></li>
-      <li><a href="/about" title="About" class="hollow-bold">About</a></li>
+      <li><a href="/posts" title="Posts" class="cmd-link">cd /posts</a></li>
+      <li><a href="/archive" title="Archive" class="cmd-link">cd /archive</a></li>
+      <li><a href="/talks" title="Talks" class="cmd-link">cd /talks</a></li>
+      <li><a href="/about" title="About" class="cmd-link">whoami</a></li>
     </ul>
   </nav>
 </header>
+
+<style>
+  .terminal-header {
+    border: 1px solid var(--hacker-text);
+    border-radius: 5px 5px 0 0;
+    background-color: var(--hacker-bg-alt);
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  
+  .terminal-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--hacker-bg-alt);
+    padding: 5px 10px;
+    border-bottom: 1px solid var(--hacker-text-dim);
+  }
+  
+  .terminal-title {
+    color: var(--hacker-text-bright);
+    font-family: var(--code-font);
+    font-size: 0.8rem;
+  }
+  
+  .terminal-buttons {
+    display: flex;
+  }
+  
+  .terminal-button {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-left: 5px;
+    background-color: var(--hacker-text-dim);
+  }
+  
+  .terminal-nav ul li a {
+    font-family: var(--code-font);
+    position: relative;
+  }
+  
+  .cmd-link::before {
+    content: "$ ";
+    color: var(--hacker-text-dim);
+  }
+</style>
